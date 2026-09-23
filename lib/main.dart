@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'Registro.dart';
-import 'Login.dart';
-import 'Perfil.dart';
+import 'registro.dart';
+import 'login.dart';
+import 'perfil.dart';
 
 void main() {
   runApp(const EventosApp());
