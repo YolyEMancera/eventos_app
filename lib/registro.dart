@@ -26,9 +26,7 @@ class _RegistroState extends State<Registro> {
 
   // Seleccionar una foto desde la galería
   Future<void> seleccionarGaleria() async {
-    final XFile? imagen = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
+    final XFile? imagen = await picker.pickImage(source: ImageSource.gallery);
 
     if (imagen != null) {
       setState(() {
@@ -39,9 +37,7 @@ class _RegistroState extends State<Registro> {
 
   // Tomar una foto con la cámara
   Future<void> tomarFoto() async {
-    final XFile? imagen = await picker.pickImage(
-      source: ImageSource.camera,
-    );
+    final XFile? imagen = await picker.pickImage(source: ImageSource.camera);
 
     if (imagen != null) {
       setState(() {
@@ -93,27 +89,24 @@ class _RegistroState extends State<Registro> {
         password.isEmpty ||
         confirmarPassword.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Por favor completa todos los campos'),
-        ),
+        const SnackBar(content: Text('Por favor completa todos los campos')),
       );
       return;
     }
 
     if (password != confirmarPassword) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Las contraseñas no coinciden'),
-        ),
+        const SnackBar(content: Text('Las contraseñas no coinciden')),
       );
       return;
     }
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        content: Text('Usuario registrado correctamente'),
+        content: Text('Registro de ejemplo. Ahora puedes iniciar sesión.'),
       ),
     );
+    Navigator.pop(context);
   }
 
   @override
@@ -128,10 +121,7 @@ class _RegistroState extends State<Registro> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Crear cuenta'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Crear cuenta'), centerTitle: true),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -140,10 +130,7 @@ class _RegistroState extends State<Registro> {
 
             const Text(
               'CREAR CUENTA',
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 25),
@@ -154,14 +141,11 @@ class _RegistroState extends State<Registro> {
               child: CircleAvatar(
                 radius: 60,
                 backgroundColor: Colors.blue.shade100,
-                backgroundImage:
-                    fotoPerfil != null ? FileImage(fotoPerfil!) : null,
+                backgroundImage: fotoPerfil != null
+                    ? FileImage(fotoPerfil!)
+                    : null,
                 child: fotoPerfil == null
-                    ? const Icon(
-                        Icons.person,
-                        size: 65,
-                        color: Colors.blue,
-                      )
+                    ? const Icon(Icons.person, size: 65, color: Colors.blue)
                     : null,
               ),
             ),
@@ -214,9 +198,7 @@ class _RegistroState extends State<Registro> {
                 border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    ocultarPassword
-                        ? Icons.visibility
-                        : Icons.visibility_off,
+                    ocultarPassword ? Icons.visibility : Icons.visibility_off,
                   ),
                   onPressed: () {
                     setState(() {
@@ -245,8 +227,7 @@ class _RegistroState extends State<Registro> {
                   ),
                   onPressed: () {
                     setState(() {
-                      ocultarConfirmarPassword =
-                          !ocultarConfirmarPassword;
+                      ocultarConfirmarPassword = !ocultarConfirmarPassword;
                     });
                   },
                 ),
@@ -276,11 +257,11 @@ class _RegistroState extends State<Registro> {
             ),
 
             TextButton(
-  onPressed: () {
-    Navigator.pushNamed(context, '/login');
-  },
-  child: const Text('Iniciar sesión'),
-),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Iniciar sesión'),
+            ),
           ],
         ),
       ),
