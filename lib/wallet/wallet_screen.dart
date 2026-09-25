@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "recharge_screen.dart";
 
 class WalletScreen extends StatelessWidget {
   const WalletScreen({super.key});
@@ -25,9 +26,15 @@ class WalletScreen extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 32, fontWeight: FontWeight.bold),
             ),
+
+            // Botón para recargar saldo
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RechargeScreen()),
+                );
                 // Acción para agregar fondos
               },
               child: const Text("Recargar saldo"),
