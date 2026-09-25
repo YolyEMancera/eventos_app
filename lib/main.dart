@@ -26,7 +26,7 @@ class EventosApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      home: const RechargeScreen(),
+      home: const WalletScreen(),
 
       routes: {
         '/registro': (context) => const Registro(),
