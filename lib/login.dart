@@ -19,20 +19,17 @@ class _LoginState extends State<Login> {
 
     if (correo.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Por favor completa todos los campos'),
-        ),
+        const SnackBar(content: Text('Por favor completa todos los campos')),
       );
       return;
     }
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Inicio de sesión correcto'),
-      ),
+      const SnackBar(content: Text('Bienvenido a la demostración')),
     );
 
-    Navigator.pushNamed(context, '/perfil');
+    // Al entrar, no dejamos el formulario de acceso detrás del inicio.
+    Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
   }
 
   @override
@@ -45,30 +42,20 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Iniciar sesión'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Iniciar sesión'), centerTitle: true),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
             const SizedBox(height: 40),
 
-            const Icon(
-              Icons.event,
-              size: 80,
-              color: Colors.blue,
-            ),
+            const Icon(Icons.event, size: 80, color: Colors.blue),
 
             const SizedBox(height: 20),
 
             const Text(
               'INICIAR SESIÓN',
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 40),
@@ -95,9 +82,7 @@ class _LoginState extends State<Login> {
                 border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    ocultarPassword
-                        ? Icons.visibility
-                        : Icons.visibility_off,
+                    ocultarPassword ? Icons.visibility : Icons.visibility_off,
                   ),
                   onPressed: () {
                     setState(() {
@@ -115,10 +100,7 @@ class _LoginState extends State<Login> {
               height: 50,
               child: ElevatedButton(
                 onPressed: iniciarSesion,
-                child: const Text(
-                  'INGRESAR',
-                  style: TextStyle(fontSize: 16),
-                ),
+                child: const Text('INGRESAR', style: TextStyle(fontSize: 16)),
               ),
             ),
 

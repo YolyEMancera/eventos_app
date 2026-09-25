@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'barra_navegacion.dart';
+
 class Perfil extends StatefulWidget {
   const Perfil({super.key});
 
@@ -11,14 +13,17 @@ class Perfil extends StatefulWidget {
 }
 
 class _PerfilState extends State<Perfil> {
-  final TextEditingController nombreController =
-      TextEditingController(text: 'Usuario de Eventos');
+  final TextEditingController nombreController = TextEditingController(
+    text: 'Usuario de Eventos',
+  );
 
-  final TextEditingController correoController =
-      TextEditingController(text: 'usuario@correo.com');
+  final TextEditingController correoController = TextEditingController(
+    text: 'usuario@correo.com',
+  );
 
-  final TextEditingController passwordController =
-      TextEditingController(text: '123456');
+  final TextEditingController passwordController = TextEditingController(
+    text: '123456',
+  );
 
   final ImagePicker picker = ImagePicker();
 
@@ -87,9 +92,7 @@ class _PerfilState extends State<Perfil> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Información actualizada correctamente'),
-      ),
+      const SnackBar(content: Text('Información actualizada correctamente')),
     );
   }
 
@@ -104,10 +107,8 @@ class _PerfilState extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Mi perfil'),
-        centerTitle: true,
-      ),
+      bottomNavigationBar: const BarraNavegacion(indiceActual: 3),
+      appBar: AppBar(title: const Text('Mi perfil'), centerTitle: true),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
@@ -116,10 +117,7 @@ class _PerfilState extends State<Perfil> {
 
             const Text(
               'MI PERFIL',
-              style: TextStyle(
-                fontSize: 26,
-                fontWeight: FontWeight.bold,
-              ),
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
             ),
 
             const SizedBox(height: 25),
@@ -127,14 +125,11 @@ class _PerfilState extends State<Perfil> {
             CircleAvatar(
               radius: 65,
               backgroundColor: Colors.blue.shade100,
-              backgroundImage:
-                  fotoPerfil != null ? FileImage(fotoPerfil!) : null,
+              backgroundImage: fotoPerfil != null
+                  ? FileImage(fotoPerfil!)
+                  : null,
               child: fotoPerfil == null
-                  ? const Icon(
-                      Icons.person,
-                      size: 70,
-                      color: Colors.blue,
-                    )
+                  ? const Icon(Icons.person, size: 70, color: Colors.blue)
                   : null,
             ),
 
@@ -183,9 +178,7 @@ class _PerfilState extends State<Perfil> {
                 border: const OutlineInputBorder(),
                 suffixIcon: IconButton(
                   icon: Icon(
-                    ocultarPassword
-                        ? Icons.visibility
-                        : Icons.visibility_off,
+                    ocultarPassword ? Icons.visibility : Icons.visibility_off,
                   ),
                   onPressed: () {
                     setState(() {
@@ -205,10 +198,7 @@ class _PerfilState extends State<Perfil> {
                 child: ElevatedButton.icon(
                   onPressed: editarPerfil,
                   icon: const Icon(Icons.edit),
-                  label: const Text(
-                    'EDITAR',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                  label: const Text('EDITAR', style: TextStyle(fontSize: 16)),
                 ),
               ),
 
@@ -219,10 +209,7 @@ class _PerfilState extends State<Perfil> {
                 child: ElevatedButton.icon(
                   onPressed: guardarPerfil,
                   icon: const Icon(Icons.save),
-                  label: const Text(
-                    'GUARDAR',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                  label: const Text('GUARDAR', style: TextStyle(fontSize: 16)),
                 ),
               ),
 
@@ -230,9 +217,10 @@ class _PerfilState extends State<Perfil> {
 
             TextButton(
               onPressed: () {
-                Navigator.pushReplacementNamed(
+                Navigator.pushNamedAndRemoveUntil(
                   context,
                   '/login',
+                  (route) => false,
                 );
               },
               child: const Text('Cerrar sesión'),
