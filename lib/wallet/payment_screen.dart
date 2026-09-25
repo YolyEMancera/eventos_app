@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
+import '../servicios/evento.dart';
+
 class PaymentScreen extends StatelessWidget {
-  const PaymentScreen({super.key});
+  final Evento evento;
+
+  const PaymentScreen({super.key, required this.evento});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Realizar Pago"),
-      ),
-      body: Padding(
+      appBar: AppBar(title: const Text('Realizar pago')),
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Detalles del pago:",
+              'Detalles del pago:',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 10),
@@ -26,63 +28,63 @@ class PaymentScreen extends StatelessWidget {
                 color: Colors.grey[200],
                 borderRadius: BorderRadius.circular(15),
               ),
-            
-              child: const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              
-              children: [
-                Text(
-                  "Conferencia de Flutter",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                
-
-                SizedBox(height: 15),
-
-                Text(
-                  "Fecha: 15 de octubre, 2026",
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  "Ubicación: Auditorio Principal",
-                  style: TextStyle(fontSize: 16),
-                ),
-                SizedBox(height: 5),
-                Text("2:00 PM - 5:00 PM", style: TextStyle(fontSize: 16)),
-              ],
-            ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    evento.nombre,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Text(
+                    'Fecha: ${evento.fecha}',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    'Ubicación: ${evento.ubicacion}',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(evento.hora, style: const TextStyle(fontSize: 16)),
+                ],
+              ),
             ),
             const SizedBox(height: 10),
-            const Text(
-              "Monto a pagar: \$20.000",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            Text(
+              'Monto a pagar: ${evento.precio}',
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-
                 showDialog(
                   context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text("Pago Exitoso"),
-                      content: const Text(
-                          "¡Gracias por tu pago! Tu registro ha sido confirmado."),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(); // Cierra el diálogo
-                          },
-                          child: const Text("Cerrar"),
-                        ),
-                      ],
-                    );
-                  },
+                  builder: (dialogContext) => AlertDialog(
+                    title: const Text('Pago de ejemplo'),
+                    content: const Text(
+                      'Esta demostración no realiza cobros ni guarda inscripciones.',
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(dialogContext),
+                        child: const Text('Cerrar'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(dialogContext);
+                          Navigator.pushNamed(context, '/mis-eventos');
+                        },
+                        child: const Text('Ver mis eventos'),
+                      ),
+                    ],
+                  ),
                 );
-                // Acción para procesar el pago
               },
-              child: const Text("Pagar"),
+              child: const Text('Pagar'),
             ),
           ],
         ),

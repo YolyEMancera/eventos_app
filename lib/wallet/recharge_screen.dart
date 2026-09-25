@@ -58,29 +58,43 @@ class _RechargeScreenState extends State<RechargeScreen> {
               child: ElevatedButton(
                 onPressed: () {
                   // Acción para recargar saldo
-                  final valor = _valorController.text;
+                  final valor = _valorController.text.trim();
 
                   // Validar que el valor ingresado no esté vacío
                   if (valor.isEmpty) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Por favor, ingrese un monto válido.')),
-                      
+                    showDialog<void>(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: const Text('Monto inválido'),
+                        content: const Text(
+                          'Por favor, ingrese un monto válido.',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: const Text('Aceptar'),
+                          ),
+                        ],
+                      ),
                     );
-                  } 
-                  else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Recargando \$${_valorController.text}...')),
-                    );
-
                     return;
                   }
-                   // Simulación de recarga exitosa
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Recarga de \$${_valorController.text} exitosa!')),
-                    );
+
+                  // Simulación de recarga exitosa
+                  showDialog<void>(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: const Text('Recarga exitosa'),
+                      content: Text('La recarga de \$$valor fue exitosa.'),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text('Aceptar'),
+                        ),
+                      ],
+                    ),
+                  );
                   },
-                
                 child: const Text('Recargar saldo'),
               ),
             ),
